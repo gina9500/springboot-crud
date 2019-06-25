@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.java.dao.InfMapper">
+    <select id="findAll" resultType="map">
+        select * from info limit #{start},#{size}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(*) from info
+    </select>
+    <insert id="save" parameterType="map">
+        insert into info values(null,#{name},#{gender},#{clazz},#{score},#{bir})
+    </insert>
+    <select id="findById" resultType="map">
+        select * from info where id =#{id}
+    </select>
+    <update id="update" parameterType="map">
+        update info set name=#{name},gender=#{gender},clazz=#{clazz},score=#{score},bir=#{bir} where id=#{id}
+    </update>
+    <delete id="del">
+        DELETE FROM info WHERE id=#{id}
+    </delete>
+</mapper>

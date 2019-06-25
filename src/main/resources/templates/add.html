@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{'/css/bootstrap.min.css'}" rel="stylesheet" type="text/css">
+    <script th:src="@{'/js/jquery-1.12.4.js'}"></script>
+    <script th:src="@{'/js/bootstrap.min.js'}"></script>
+</head>
+<body>
+
+<form class="form-horizontal" role="form" method="post" th:action="@{'/save'}">
+
+    <input type="hidden" name="id" th:value="${m?.id}">
+
+    <div class="form-group">
+        <label for="firstname" class="col-md-2 control-label">姓名</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" required="required" id="firstname" name="name"
+                   placeholder="请输入名字" th:value="${m?.name}" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="gender" class="col-sm-2 control-label">性别</label>
+        <div class="col-sm-4">
+            <label class="radio-inline">
+                <input type="radio" value="男" id="gender" name="gender" checked="checked" th:attr="checked=${m?.gender=='男'?true:false}" >男性
+            </label>
+            <label class="radio-inline">
+                <input type="radio" value="女" name="gender" th:attr="checked=${m?.gender=='女'?true:false}">女性
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="clazz" class="col-md-2 control-label">班级</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" required="required" id="clazz" name="clazz" th:value="${m?.clazz}"
+                   placeholder="请输入班级">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="score" class="col-sm-2 control-label">分数</label>
+        <div class="col-sm-4">
+            <input type="text" required="required" class="form-control" th:value="${m?.score}" id="score" name="score">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="bir" class="col-sm-2 control-label">生日</label>
+        <div class="col-sm-4">
+            <input type="date" class="form-control" id="bir" th:value="${m?.bir}" name="bir">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-4">
+            <button type="submit" class="btn btn-success">提交</button>
+            <button type="button" onclick="history.back()" class="btn btn-info">重置</button>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

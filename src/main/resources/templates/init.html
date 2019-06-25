@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{'/css/bootstrap.min.css'}" rel="stylesheet" type="text/css">
+    <script th:src="@{'/js/jquery-1.12.4.js'}"></script>
+    <script th:src="@{'/js/bootstrap.min.js'}"></script>
+</head>
+<style>
+    td,th{
+        text-align: center;
+    }
+    a{
+        color: blue;
+        text-decoration: none;
+    }
+    a:hover{
+        color: red;
+        text-decoration: none;
+    }
+    b{
+        color: red;
+    }
+
+</style>
+<body>
+<div class="col-md-10 col-md-offset-1">
+    <table class="table table-bordered table-striped table-hover">
+        <Tr>
+            <Th>序号</Th>
+            <Th>姓名</Th>
+            <Th>性别</Th>
+            <Th>班级</Th>
+            <Th>成绩</Th>
+            <Th>考核结果</Th>
+            <Th>出生日期</Th>
+            <Th>操作</Th>
+        </Tr>
+        <tr th:each="m,st:${list}">
+            <Td>[[${st.count+(page-1)*size}]]</Td>
+            <Td th:text="${m.name}"/>
+            <Td th:text="${m.gender}"/>
+            <Td th:text="${m.clazz}"></Td>
+            <Td th:text="${m.score}"></Td>
+            <Td>
+                <b th:if="${m.score ge 90}" style="color:green">优秀</b>
+                <b th:if="${m.score ge 80 && m.score lt 90}" style="color:blue">良好</b>
+                <b th:if="${m.score ge 60 && m.score lt 80}" style="color:orange">合格</b>
+                <b th:if="${m.score lt 60}" style="color:red">不合格</b>
+            </Td>
+            <Td  th:text="${m.bir}"></Td>
+            <Td>
+                <!--方法跳转-->
+                <!--<a th:href="@{'/forward/add'}" class="btn btn-success">增加</a>-->
+                <!--启动类跳转-->
+                <a th:href="add" class="btn btn-success">增加</a>
+                <a th:href="@{|/del/${m.id}|}" class="btn btn-danger">删除</a>
+                <a th:href="@{|/update/${m.id}|}" class="btn btn-primary">修改</a>
+            </Td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                共<b>[[${count}]]</b>条
+                每页<b>[[${size}]]</b>条
+                共<b>[[${MaxPage}]]</b>页
+                当前第<b>[[${page}]]</b>页
+                <span th:if="${page eq 1}">首页 上一页</span>
+                <span th:if="${page gt 1}">
+                    <a th:href="@{/init/1}">首页</a>
+                    <a th:href="@{|/init/${page-1}|}">上一页</a>
+                </span>
+                <span th:if="${page eq MaxPage}">尾页 下一页</span>
+                <span th:if="${page lt MaxPage}">
+                    <a th:href="@{/init/MaxPage}">尾页</a>
+                    <a th:href="@{|/init/${page+1}|}">下一页</a>
+                </span>
+                <!--下拉列表选择-->
+                <select th:onchange="location.href='/init/'+this.value">
+                    <div th:each="k:${#numbers.sequence(1,MaxPage)}">
+                        <option th:value="${k}" th:attr="selected=${k==page?true:false}">第[[${k}]]页</option>
+                    </div>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+
+</body>
+</html>
